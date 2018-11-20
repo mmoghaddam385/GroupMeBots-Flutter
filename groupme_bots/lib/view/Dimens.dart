@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
 
-var GAP_DEFAULT = 8.0;
+const GAP_DEFAULT = 8.0;
+const GAP_LARGE = 16.0;
 
-var ALL_INSETS_DEFAULT = EdgeInsets.all(GAP_DEFAULT);
-var HORIZONTAL_INSETS_DEFAULT = EdgeInsets.only(
+const ALL_INSETS_DEFAULT = EdgeInsets.all(GAP_DEFAULT);
+const HORIZONTAL_INSETS_DEFAULT = EdgeInsets.only(
   left: GAP_DEFAULT, 
   right: GAP_DEFAULT
 );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:groupme_bots/view/BotPage.dart';
+import 'package:groupme_bots/view/pages/bot/BotPage.dart';
 
 void main() => runApp(MyApp());
 
