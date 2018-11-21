@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:groupme_bots/model/Bot.dart';
+import 'package:groupme_bots/model/BotMessage.dart';
 import 'package:groupme_bots/view/Dimens.dart' as dimens;
 import 'package:groupme_bots/view/ViewUtils.dart' as ViewUtils;
-import 'package:groupme_bots/view/pages/bot/BotMessage.dart';
+import 'package:groupme_bots/view/pages/bot/BotMessageView.dart';
 import 'package:groupme_bots/view/pages/bot/BotPageMessageBar.dart';
 import 'package:groupme_bots/viewmodel/BotPageViewModel.dart';
 
@@ -38,7 +39,7 @@ class BotPageState extends State<BotPage> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child:
-                    StreamBuilder<String>(
+                    StreamBuilder<BotMessage>(
                       stream: _viewModel.getMessageStream(),
                       builder: (context, snapshot) {
                         if (snapshot.data != null) {
@@ -49,7 +50,7 @@ class BotPageState extends State<BotPage> {
                           reverse: true,
                           itemCount: _messages.length,
                           itemBuilder: (context, position) {
-                            return BotMessage(_messages[position]);
+                            return BotMessageView(_messages[position]);
                           },
                         );
                       }  

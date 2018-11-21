@@ -1,12 +1,28 @@
 
 import 'package:flutter/material.dart';
+import 'package:groupme_bots/model/BotMessage.dart';
 import 'package:groupme_bots/view/Dimens.dart' as Dimens;
 
-class BotMessage extends StatelessWidget {
+class BotMessageView extends StatefulWidget {
   
-  final String _message;
+  BotMessage _initialMessage;
 
-  BotMessage(this._message);
+  BotMessageView(this._initialMessage);
+
+  @override
+  State<StatefulWidget> createState() => _BotMessageViewState();
+ 
+}
+
+class _BotMessageViewState extends State<BotMessageView> {
+  
+  BotMessage _message;
+
+  @override
+  void initState() {
+    super.initState();
+    _message = widget._initialMessage;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +49,7 @@ class BotMessage extends StatelessWidget {
           ),
           child: 
             Text(
-              _message, 
+              _message.text, 
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16
@@ -44,4 +60,5 @@ class BotMessage extends StatelessWidget {
     );
   }
 
-}
+
+} 
