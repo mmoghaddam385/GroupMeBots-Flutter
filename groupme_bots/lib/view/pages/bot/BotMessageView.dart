@@ -5,9 +5,9 @@ import 'package:groupme_bots/view/Dimens.dart' as Dimens;
 
 class BotMessageView extends StatefulWidget {
   
-  BotMessage _initialMessage;
+  final BotMessage _message;
 
-  BotMessageView(this._initialMessage);
+  BotMessageView(this._message);
 
   @override
   State<StatefulWidget> createState() => _BotMessageViewState();
@@ -15,14 +15,6 @@ class BotMessageView extends StatefulWidget {
 }
 
 class _BotMessageViewState extends State<BotMessageView> {
-  
-  BotMessage _message;
-
-  @override
-  void initState() {
-    super.initState();
-    _message = widget._initialMessage;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +41,7 @@ class _BotMessageViewState extends State<BotMessageView> {
           ),
           child: 
             Text(
-              _message.text, 
+              widget._message.text, 
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16
