@@ -21,13 +21,22 @@ class BotPageState extends State<BotPage> {
   var _messageController = new TextEditingController();
   var _messages = List();
 
+  var _botIdController = new TextEditingController();
+
   BotPageState(this._viewModel);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_viewModel.bot.name)
+        title: Text(_viewModel.bot.name),
+        actions: <Widget> [
+          IconButton(
+            icon: Icon(Icons.edit),
+            tooltip: "Edit bot ID",
+            onPressed: _showBotIdDialog,
+          )
+        ]
       ),
       body: 
         Column(
@@ -68,6 +77,36 @@ class BotPageState extends State<BotPage> {
             )
           ]
         )
+    );
+  }
+
+  void _showBotIdDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        _botIdController.text = _viewModel.botId;
+        
+        return AlertDialog(
+          title: Text("Edit Bot ID"),
+          content: TextField(
+            autofocus: true,
+            controller: _botIdController,
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("CANCEL"),
+              onPressed: () => Navigator.of(context).pop()
+            ),
+            FlatButton(
+              child: Text("OK"),
+              onPressed: () {
+                _viewModel.botId = _botIdController.text;
+                Navigator.of(context).pop();
+              }
+            )
+          ],
+        );
+      }
     );
   }
 

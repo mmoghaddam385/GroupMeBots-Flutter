@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:groupme_bots/model/Bot.dart';
 import 'package:groupme_bots/model/BotMessage.dart';
+import 'package:groupme_bots/usecase/GroupMeMessageUseCase.dart';
 
 class BotPageViewModel {
   
@@ -9,6 +10,9 @@ class BotPageViewModel {
 
   var _messageSink = StreamController<BotMessage>.broadcast();
   
+  String get botId => groupMeMessageUseCase.botId;
+  set botId (String botId) => groupMeMessageUseCase.botId = botId;
+
   BotPageViewModel(this.bot);
 
   Stream<BotMessage> getMessageStream() => _messageSink.stream;
@@ -21,6 +25,12 @@ class BotPageViewModel {
     ));
     
     print("Sending message: $message");
+
+    groupMeMessageUseCase.postMessage(message).then(
+      (status) => print("Status code: $status")
+    ).catchError(
+      (error) => print("Error! $error")
+    );
   }
 
   void dispose() {
