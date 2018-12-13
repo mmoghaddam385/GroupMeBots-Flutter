@@ -12,6 +12,10 @@ class GroupMeMessageUseCase {
   String get botId => groupMeMessageCache.botId;
   set botId(String val) => groupMeMessageCache.botId = val;
 
+  void initBotId() {
+    groupMeMessageCache.initBotId();
+  }
+
   Future<int> postMessage(String message) async {
     return groupMeMessageRepository.postGroupMeMessage(message);
   }

@@ -14,7 +14,9 @@ class BotPageViewModel {
   String get botId => groupMeMessageUseCase.botId;
   set botId (String botId) => groupMeMessageUseCase.botId = botId;
 
-  BotPageViewModel(this.bot);
+  BotPageViewModel(this.bot) {
+    groupMeMessageUseCase.initBotId();
+  }
 
   Stream<BotMessage> getMessageStream() => _messageSink.stream;
   Stream<String> getSnackBarStream() => _snackBarSink.stream;
