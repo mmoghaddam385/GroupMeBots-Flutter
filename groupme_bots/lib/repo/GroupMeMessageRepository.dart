@@ -13,7 +13,7 @@ class GroupMeMessageRepository {
 
   Future<int> postGroupMeMessage(String message) async {
     if (groupMeMessageCache.botId == null || groupMeMessageCache.botId == "") {
-      throw new IllegalStateException("Bot ID can't be null or empty!");
+      throw("Bot ID can't be null or empty!");
     }
 
     http.Response response = await http.post(

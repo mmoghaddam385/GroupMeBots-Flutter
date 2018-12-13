@@ -18,6 +18,8 @@ class BotPageState extends State<BotPage> {
   
   BotPageViewModel _viewModel;
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>(); // TODO: Figure out a better way to show snackbars from root widget (refactor to sub widgets?)
+
   var _messageController = new TextEditingController();
   var _messages = List();
 
@@ -26,8 +28,23 @@ class BotPageState extends State<BotPage> {
   BotPageState(this._viewModel);
 
   @override
+  void initState() {
+    super.initState();
+
+    _viewModel.getSnackBarStream().listen(
+      (message) {
+        _scaffoldKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text(message))
+        );
+      }
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(_viewModel.bot.name),
         actions: <Widget> [
@@ -52,14 +69,14 @@ class BotPageState extends State<BotPage> {
                       stream: _viewModel.getMessageStream(),
                       builder: (context, snapshot) {
                         if (snapshot.data != null) {
-                          _messages.insert(0, snapshot.data);
+                          _messages.add(snapshot.data);
                         }
                         return ListView.builder(
                           padding: EdgeInsets.only(top: dimens.GAP_DEFAULT),
-                          reverse: true,
+                          reverse: false,
                           itemCount: _messages.length,
                           itemBuilder: (context, position) {
-                            return BotMessageView(_messages[position]);
+                            return new BotMessageView(_messages[position]);
                           },
                         );
                       }  

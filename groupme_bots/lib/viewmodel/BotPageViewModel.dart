@@ -9,6 +9,7 @@ class BotPageViewModel {
   Bot bot;
 
   var _messageSink = StreamController<BotMessage>.broadcast();
+  var _snackBarSink = StreamController<String>.broadcast();
   
   String get botId => groupMeMessageUseCase.botId;
   set botId (String botId) => groupMeMessageUseCase.botId = botId;
@@ -16,6 +17,7 @@ class BotPageViewModel {
   BotPageViewModel(this.bot);
 
   Stream<BotMessage> getMessageStream() => _messageSink.stream;
+  Stream<String> getSnackBarStream() => _snackBarSink.stream;
 
   void sendMessage(String message) {
     _messageSink.add(BotMessage(
@@ -28,12 +30,15 @@ class BotPageViewModel {
 
     groupMeMessageUseCase.postMessage(message).then(
       (status) => print("Status code: $status")
-    ).catchError(
-      (error) => print("Error! $error")
+    ).catchError((error) {
+        print("Error! $error");
+        _snackBarSink.add(error);
+      }
     );
   }
 
   void dispose() {
     _messageSink.close();
+    _snackBarSink.close();
   }
 }
